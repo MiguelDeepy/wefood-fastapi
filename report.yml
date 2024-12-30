@@ -1,0 +1,4 @@
+customer:
+  not_found: 'Customer not found'
+  exists: 'Existing customer'
+  n_not_found: 'No customers found'

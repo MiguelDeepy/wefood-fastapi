@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}        # Usando a variável do .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # Usando a variável do .env
+      POSTGRES_DB: ${POSTGRES_DB}            # Usando a variável do .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volume para persistência de dados
+    ports:
+      - "5432:5432"  # Expondo a porta do PostgreSQL
+    networks:
+      - app_network
+
+  adminer:
+    image: adminer  # Usando a imagem oficial do Adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"  # Expondo a porta do Adminer
+    networks:
+      - app_network
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
